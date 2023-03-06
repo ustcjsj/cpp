@@ -1,0 +1,30 @@
+
+ID: Eat pizzas and drink beer
+  ST: Mon Oct 08 12:25:19 2012
+  FT: Mon Oct 08 14:25:19 2012
+  DU: 7200
+
+ID: Open beer
+  ST: Mon Oct 08 12:25:16 2012
+  FT: Mon Oct 08 12:25:18 2012
+  DU: 2
+
+ID: Defrost pizzas
+  ST: Mon Oct 08 11:25:16 2012
+  FT: Mon Oct 08 12:25:16 2012
+  DU: 3600
+
+ID: Eat pizzas and drink beer
+  ST: Mon Oct 08 12:27:53 2012
+  FT: Mon Oct 08 14:27:53 2012
+  DU: 7200
+
+ID: Open beer
+  ST: Mon Oct 08 12:27:50 2012
+  FT: Mon Oct 08 12:27:52 2012
+  DU: 2
+
+ID: Defrost pizzas
+  ST: Mon Oct 08 11:27:50 2012
+  FT: Mon Oct 08 12:27:50 2012
+  DU: 3600

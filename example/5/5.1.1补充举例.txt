@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+class High
+{  protected:
+     float H;
+   public:
+     High(float h) 
+     	{  H=h;}
+     virtual void Show()	//在基类中定义虚函数Show()
+     	{  cout<<"High="<<H<<endl;}
+};
+class Cuboid:public High
+{  private:
+     float Length,Width;
+   public:
+     Cuboid(float l=0,float w=0,float h=0):High(h)
+     {  Length=l; Width=w;}
+   virtual void Show()  //在长方体派生类中定义虚函数Show()
+     {  cout<<"Length="<<Length<<'\t';
+        cout<<"Width="<<Width<<'\t';
+        cout<<"High="<<H<<'\n'; 
+        cout<<"Cuboid Volume="<<Length*Width*H<<endl;
+     }    
+};
+class Cylinder:public High
+{  private:
+     float R;
+   public:
+     Cylinder(float r=0,float h=0):High(h)
+     {R=r;}
+ 	virtual void Show()  //在圆柱体派生类中定义虚函数Show()
+     {  cout<<"Radius="<<R<<'\t';
+        cout<<"High="<<H<<'\n';
+        cout<<"Cylinder Volume="<<R*R*3.1415*H<<endl;
+     }  
+};
+void main(void)
+{  High h(10),*p;
+   Cuboid  cu(10,10,10);
+   Cylinder cy(10,10);
+   h.Show();
+   cu.Show();
+   cy.Show();
+   p=&h;
+   p->Show();
+   p=&cu;
+   p->Show();
+   p=&cy;
+   p->Show();
+}

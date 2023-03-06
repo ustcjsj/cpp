@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+class Shape
+{  protected:
+       int a,b;
+   public:
+       void set(int i,int j=0) { a=i; b=j;}
+       virtual void print_area(void)=0;  //´¿Ðéº¯Êý
+};
+class triangle:public Shape
+{    public:
+        virtual void print_area(void)
+        {   cout<<"\n triangle with height ";
+             cout<<a<<" and base "<<b;
+             cout<<" has an area of ";
+             cout<<a*b/2;
+    }
+};
+class circle:public Shape
+{   public:
+       virtual void print_area(void)
+       {   cout<<"\n Circle with radius "<<a;
+           cout<<" has an area of ";
+           cout<<3.14*a*a;       }      };
+class rectangle:public Shape
+{    public:
+          virtual void print_area(void)
+          {  cout<<"\n rectangle with legnth "<<a;
+             cout<<" and width "<<b<<" has an area of ";
+             cout<<a*b<<"\n";          }
+};
+int main(void)
+{  Shape *p;  triangle t;  circle c;  rectangle r;
+  p=&t; p->set(10,16); p->print_area();
+  p=&c; p->set(100); p->print_area();
+  p=&r; p->set(10,160); p->print_area(); 
+  return 0;  
+}

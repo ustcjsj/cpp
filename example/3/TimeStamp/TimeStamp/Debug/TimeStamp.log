@@ -1,0 +1,20 @@
+﻿生成启动时间为 2012/10/7 8:48:44。
+     1>项目“C:\Work\上课\c++\2011_2\exam\3\TimeStamp\TimeStamp\TimeStamp.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“Debug\TimeStamp.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         所有输出均为最新。
+       ManifestResourceCompile:
+         所有输出均为最新。
+       Link:
+         所有输出均为最新。
+       Manifest:
+         所有输出均为最新。
+       FinalizeBuildStatus:
+         正在删除文件“Debug\TimeStamp.unsuccessfulbuild”。
+         正在对“Debug\TimeStamp.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“C:\Work\上课\c++\2011_2\exam\3\TimeStamp\TimeStamp\TimeStamp.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:00.43

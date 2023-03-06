@@ -1,0 +1,127 @@
+#include <iostream>
+using namespace std;
+class Object  //定义一个抽象类，用于派生描述结点信息的类
+{  public:
+     Object(){}	//缺省的构造函数
+     virtual  int IsEqual(Object &)=0; 	//实现两个结点数据比较的纯虚函数
+     virtual  void Show()=0;   	//输出一个结点上数据的纯虚函数
+     virtual  ~Object() {}	//析构函数定义为虚函数
+};
+
+class IntObj: public Object  //由抽象类派生出描述结点数据的类
+{  private:
+	 int data;
+   public:
+     IntObj(int x=0)      {  SetData(x);}
+     void SetData(int x)      {  data=x;}
+     int IsEqual(Object &);
+     void Show()  {  cout<<"Data="<<data<<"  ";} //重新定义虚函数
+};
+int IntObj::IsEqual(Object &obj)  //重写比较两个结点是否相等
+{  IntObj & temp=static_cast<IntObj &>(obj);
+   return (data==temp.data); 
+}
+
+class Node   	//定义结点类
+{  private:
+     Object *Info;  	//指向描述结点的数据域
+     Node *Pre, *Next;  //用于构成链表前、后指针
+   public:
+     Node()   //定义缺省的构造函数
+    {  Info=0;Pre=0;Next=0;}
+  //   Node (Node &node)  //完成拷贝功能的构造函数
+	 //{  Info=node.Info;
+		//Pre=node.Pre;
+		//Next=node.Next;  
+	 //}
+    void FillInfo(Object *obj)  //使Info指向数据域
+    {  Info=obj; }  	
+    friend class List;   //定义List为Node的友元类
+};
+
+class List             //实现双向链表操作的类
+{  private: 
+     Node *Head, *Tail;  //定义链表首和链表尾指针
+   public:
+     List() { Head=Tail=0;} 	//置空链表			
+	 ~List()  { DelList();} 	 //释放链表所占的存储空间
+     void  AddNode(Node *);    //在链表尾增加一个结点的成员函数
+     Node* DelNode(Node *);  //删除链表中指定结点的成员函数
+     Node* LookUp(Object &);  //在链表中查找指定结点的成员函数
+     void  ShowList ();  //输出整条链表上的数据的成员函数
+     void  DelList();      	//删除整条链表的成员函数
+};
+void List::AddNode(Node * node)
+{  if (Head==0)      //链表为空表时 
+   {  Head=Tail=node; //链表首、尾指针指向结点
+      node->Next=node->Pre=0;	//该结点前、后指针置为空
+   }
+   else                        // 链表非空 
+   {  Tail->Next=node;	//将结点加入到链表尾 
+      node->Pre=Tail;         
+      Tail=node;
+      node->Next=0;
+   }
+}
+Node * List::DelNode(Node * node)  //返回删除指定的结点
+{  if (node==Head)      //删除链表首结点
+     if (node==Tail)       //链表只有一个结点
+       Head=Tail=0;
+     else 
+     {  Head=node->Next;  // 删除链表首结点
+        Head->Pre=0;     }
+   else 
+   {  node->Pre->Next=node->Next;  	//删除非首结点
+      if (node!=Tail) node->Next->Pre=node->Pre;
+      else Tail=node->Pre;    }
+   node->Pre=node->Next=0;
+   return(node);
+}
+Node * List::LookUp(Object &obj)   //从链表中查找一个结点
+{  Node *pn=Head;
+   while (pn)
+   {  if (pn->Info->IsEqual(obj)) return pn;
+      pn=pn->Next;  }
+  return 0;
+}
+void List::ShowList()  	//输出链表上各结点的数据值
+{  Node *p=Head;
+   while (p)  
+   {  p->Info->Show();
+      p=p->Next;   }
+}
+void List::DelList()  	//删除整条链表
+{  Node *p, *q;
+   p=Head;
+   while(p)
+   {  delete p->Info;
+      q=p;
+      p=p->Next;
+      delete q;
+   }
+}
+void main(void)
+{  IntObj *p;
+   Node  *pn , *pt, node;
+   List list;
+   for (int i=0;i<5;i++) //建立包括五个结点的双向链表
+   {  p=new IntObj(i+100);   //动态建立一个IntObj类的对象
+      pn=new Node;         	//建立一个新结点
+      pn->FillInfo(p);      	//填写结点的数据域
+      list.AddNode(pn);  	//将新结点加到链表尾
+   }
+   list.ShowList();         //输出链表上各结点
+   cout<<endl; 
+
+   IntObj  da;
+   da.SetData(102);   //给要查找的结点置数据值
+   pn=list.LookUp(da);//从链表上查找指定的结点  
+   if (pn) pt=list.DelNode(pn);	//若找到，则从链表上删除该结点
+   list.ShowList();        //输出已删除结点后的链表
+   cout<<endl;
+
+   if (pn) list.AddNode(pt); //将结点加入链表尾
+   list.ShowList();    //输出已增加一个结点的链表
+   cout<<endl;
+}
+
